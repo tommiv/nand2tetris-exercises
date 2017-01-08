@@ -9,10 +9,15 @@
  *       0 otherwise
  */
 
+// a || b == !(!a && !b);
+
 CHIP Or {
     IN a, b;
     OUT out;
 
     PARTS:
-    // Put your code here:
+    Not(in=a, out=notA);
+    Not(in=b, out=notB);
+    And(a=notA, b=notB, out=notAandnotB);
+    Not(in=notAandnotB, out=out);
 }
