@@ -9,8 +9,6 @@
  *       b otherwise
  */
 
-// a || sel =>
-
 CHIP Mux {
     IN a, b, sel;
     OUT out;
@@ -18,7 +16,7 @@ CHIP Mux {
     PARTS:
     Not(in=sel, out=notSel);
 
-    And(a=a, b=sel, out=AandSel);
-    And(a=notSel, b=b, out=BandnotSel);
-    Or(a=AandSel, b=BandnotSel, out=out);
+    And(a=a, b=notSel, out=AandnotSel);
+    And(a=sel, b=b, out=BandSel);
+    Or(a=AandnotSel, b=BandSel, out=out);
 }
