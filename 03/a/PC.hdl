@@ -12,9 +12,15 @@
  */
 
 CHIP PC {
-    IN in[16],load,inc,reset;
+    IN in[16], load, inc, reset;
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    Inc16(in=loopback, out=incremented);
+
+    Mux16(a=loopback, b=incremented, sel=inc, out=incMux);
+    Mux16(a=incMux, b=in, sel=load, out=loadMux);
+    Mux16(a=loadMux, b[0..15]=false, sel=reset, out=resetMux);
+    
+    Register(in=resetMux, load=true, out=out, out=loopback);
 }
